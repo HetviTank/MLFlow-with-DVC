@@ -1,0 +1,9 @@
+stages:
+  train:
+    cmd: python mlflow-with-dvc.py ${alpha} ${l1_ratio}
+    deps:
+    - data/wine-quality.csv
+    - mlflow-with-dvc.py
+    params:
+    - alpha
+    - l1_ratio

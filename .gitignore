@@ -1,0 +1,23 @@
+venv/
+mlruns/
+data/
+# Credentials and secrets
+*.json
+*.key
+*.pem
+.env
+.env.*
+*credentials*
+*secret*
+*token*
+
+# GCP specific
+.config/
+application_default_credentials.json
+service-account-*.json
+
+# Shell scripts with credentials
+setup_commands.sh
+
+# Config files that may contain sensitive data
+mlflow_config.py

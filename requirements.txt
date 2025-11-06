@@ -1,0 +1,6 @@
+mlflow
+dvc[gs]
+pandas
+numpy
+scikit-learn
+google-cloud-storage

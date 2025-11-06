@@ -16,17 +16,9 @@ import logging
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
 
-# Get URL from dvc
-import dvc.api
-path = "data/wine-quality.csv"
-repo = "/home/hetvi/Documents/python/mlflow_with_dvc"  # Current repository location
-version = "HEAD"  # Use current branch since wine-quality.csv is not in v1
-
-data_url = dvc.api.get_url(
-    path=path,
-    repo=repo,
-    rev=version
-)
+# Data path
+data_path = "data/wine-quality.csv"
+data_url = data_path  # Use local path for now
 
 def eval_metrics(actual, pred):
     rmse = np.sqrt(mean_squared_error(actual, pred))
@@ -39,8 +31,8 @@ if __name__ == "__main__":
     warnings.filterwarnings("ignore")
     np.random.seed(40)
 
-    # read the wine-quality csv file from remote repository
-    data = pd.read_csv(data_url, sep=",")
+    # read the wine-quality csv file
+    data = pd.read_csv(data_path, sep=",")
 
     # Split the data into training and test sets. (0.75, 0.25) split.
     train, test = train_test_split(data)
@@ -53,12 +45,17 @@ if __name__ == "__main__":
 
     alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
     l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
+    
+    # Check if data file exists
+    if not os.path.exists(data_path):
+        print(f"Error: Data file {data_path} not found")
+        sys.exit(1)
 
     with mlflow.start_run():
 
         # Log data params
         mlflow.log_param('data_url', data_url)
-        mlflow.log_param('data_version', version)
+        mlflow.log_param('data_version', 'local')
         mlflow.log_param('input_rows', data.shape[0])
         mlflow.log_param('input_columns', data.shape[1])
         

@@ -1,0 +1,5 @@
+outs:
+- md5: c2321c879dd475bfe369940fc1d05439
+  size: 49182276
+  hash: md5
+  path: cleaned_cnc_data.csv

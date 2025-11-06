@@ -1,6 +1,13 @@
 venv/
 mlruns/
-data/
+
+# Data files (but allow .dvc metadata)
+data/*.csv
+data/*.json
+data/*.parquet
+data/*.txt
+data/*.xlsx
+!data/*.dvc
 # Credentials and secrets
 *.json
 *.key
